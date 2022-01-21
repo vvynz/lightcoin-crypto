@@ -1,4 +1,22 @@
-let balance = 500.00;
+
+
+class Account {
+  constructor(username) {
+    this.username = username;
+    this.transactions = [];
+  }
+
+  get balance() {
+    // Calculate the balance using the transaction objects.
+    let balance = 0;
+    balance += this.transactions;
+    return balance;
+  }
+
+  addTransaction(transaction) {
+    this.transactions.push(transaction);
+  }
+}
 
 class Transaction { //superclass
   // pass in the account that the withdrawal is for
@@ -8,7 +26,10 @@ class Transaction { //superclass
   }
 
   commit() {
-    this.account.balance += this.value;
+    // Keep track of the time of the transaction
+    this.time = new Date();
+    // Add the transaction to the account
+    this.account.addTransaction(this);
   }
 }
 
@@ -28,12 +49,6 @@ class Deposit extends Transaction { //subclass of Transaction
   }
 }
 
-class Account {
-  constructor(username) {
-    this.username = username;
-    this.balance = 0;
-  }
-}
 
 // DRIVER CODE BELOW
 // We use the code below to "drive" the application logic above and make sure it's working as expected
