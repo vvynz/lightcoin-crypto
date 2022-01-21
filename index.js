@@ -6,21 +6,25 @@ class Transaction { //superclass
     this.amount = amount;
     this.account = account;
   }
+
+  commit() {
+    this.account.balance += this.value;
+  }
 }
 
 
 class Withdrawal extends Transaction { //subclass of Transaction
 // update the balance in the account
-  commit() {
-    this.account.balance -= this.amount;
+  get value() {
+    return -this.amount;
   }
 
 }
 
 class Deposit extends Transaction { //subclass of Transaction
 // update the balance in the account
-  commit() {
-    this.account.balance += this.amount;
+  get value() {
+    return this.amount;
   }
 }
 
@@ -39,6 +43,9 @@ const myAccount = new Account("snow-patrol");
 t1 = new Withdrawal(50.25, myAccount);
 t1.commit();
 console.log("Current balance:", myAccount.balance);
+t2 = new Deposit(500.00, myAccount);
+t2.commit();
+console.log("New balance:", myAccount.balance);
 
 // t1 = new Withdrawal(50.25);
 // t1.commit();
