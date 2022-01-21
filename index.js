@@ -10,7 +10,7 @@ class Account {
     // Calculate the balance using the transaction objects.
     let balance = 0;
     for (let t of this.transactions) {
-      balance += t.transactions;
+      balance += t.value;
     }
     return balance;
   }
