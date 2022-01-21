@@ -1,11 +1,15 @@
 let balance = 500.00;
 
-class Withdrawal {
-// pass in the account that the withdrawal is for
+class Transaction { //superclass
+  // pass in the account that the withdrawal is for
   constructor(amount, account) {
     this.amount = amount;
     this.account = account;
   }
+}
+
+
+class Withdrawal extends Transaction { //subclass of Transaction
 // update the balance in the account
   commit() {
     this.account.balance -= this.amount;
@@ -13,12 +17,7 @@ class Withdrawal {
 
 }
 
-class Deposit {
-  // pass in the account that the deposit this is for
-  constructor(amount, account) {
-    this.amount = amount;
-    this.account = account;
-  }
+class Deposit extends Transaction { //subclass of Transaction
 // update the balance in the account
   commit() {
     this.account.balance += this.amount;
@@ -36,8 +35,10 @@ class Account {
 // We use the code below to "drive" the application logic above and make sure it's working as expected
 const myAccount = new Account("snow-patrol");
 
+
 t1 = new Withdrawal(50.25, myAccount);
 t1.commit();
+console.log("Current balance:", myAccount.balance);
 
 // t1 = new Withdrawal(50.25);
 // t1.commit();
