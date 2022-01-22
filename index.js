@@ -28,10 +28,12 @@ class Transaction { //superclass
   }
 
   commit() {
+    if (!this.isAllowed()) return false;
     // Keep track of the time of the transaction
     this.time = new Date();
     // Add the transaction to the account
     this.account.addTransaction(this);
+    return true;
   }
 }
 
@@ -42,12 +44,20 @@ class Withdrawal extends Transaction { //subclass of Transaction
     return -this.amount;
   }
 
+  isAllowed() {
+    return (this.account.balance - this.amount >= 0);
+  }
+
 }
 
 class Deposit extends Transaction { //subclass of Transaction
 // update the balance in the account
   get value() {
     return this.amount;
+  }
+
+  isAllowed() {
+    return true;
   }
 }
 
@@ -58,11 +68,17 @@ const myAccount = new Account("snow-patrol");
 
 
 t1 = new Withdrawal(50.25, myAccount);
-t1.commit();
 console.log("Current balance:", myAccount.balance);
+console.log("Should fail since starting balance is 0");
+console.log("Commit result", t1.commit());
+
 t2 = new Deposit(500.00, myAccount);
-t2.commit();
-console.log("New balance:", myAccount.balance);
+console.log("Commit result", t2.commit());
+console.log("Current balance:", myAccount.balance);
+// t3 = new Withdrawal(75.00, myAccount);
+// t3.commit();
+// console.log(t3.isAllowed());
+// console.log(myAccount.balance);
 
 // t1 = new Withdrawal(50.25);
 // t1.commit();
