@@ -75,10 +75,15 @@ console.log("Commit result", t1.commit());
 t2 = new Deposit(500.00, myAccount);
 console.log("Commit result", t2.commit());
 console.log("Current balance:", myAccount.balance);
-// t3 = new Withdrawal(75.00, myAccount);
-// t3.commit();
-// console.log(t3.isAllowed());
-// console.log(myAccount.balance);
+
+t3 = new Withdrawal(75.00, myAccount);
+console.log("Commit results:", t3.commit());
+console.log("Current balance:", myAccount.balance);
+
+t4 = new Withdrawal (450, myAccount);
+console.log("Commit results:", t4.commit());
+console.log("Commit should fail since there wouldn't be enough money in the account for this withdrawal to be a success");
+console.log("Current balance:", myAccount.balance)
 
 // t1 = new Withdrawal(50.25);
 // t1.commit();
